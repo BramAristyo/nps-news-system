@@ -22,8 +22,11 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleAppearance::class,
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
-            RoleMiddleware::class,
-            InternalUserMiddleware::class,
+        ]);
+
+        $middleware->alias([
+            'role' => RoleMiddleware::class,
+            'internal-user' => InternalUserMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
