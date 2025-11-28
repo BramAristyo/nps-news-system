@@ -8,7 +8,7 @@ use App\Http\Controllers\Main\NewsController;
 Route::get('/', [NewsController::class, 'index'])->name('news.index');
 Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
 
-
+Route::get('/news/internal', [NewsController::class, 'internal'])->name('news.internal')->middleware(['auth', 'verified', 'internal-user']);
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
