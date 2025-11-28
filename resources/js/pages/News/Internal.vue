@@ -1,0 +1,3 @@
+<template>
+    <h1>News Index</h1>
+</template>
