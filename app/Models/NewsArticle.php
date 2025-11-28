@@ -13,6 +13,25 @@ class NewsArticle extends Model
 
     protected $fillable = ['title', 'slug', 'content', 'image', 'user_id', 'is_internal'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($article) {
+            if (empty($article->slug)) {
+                $article->slug = \Illuminate\Support\Str::slug($article->title);
+                
+                // Ensure uniqueness
+                $originalSlug = $article->slug;
+                $count = 1;
+                while (self::where('slug', $article->slug)->exists()) {
+                    $article->slug = $originalSlug . '-' . $count;
+                    $count++;
+                }
+            }
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
