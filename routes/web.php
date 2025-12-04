@@ -5,7 +5,7 @@ use Laravel\Fortify\Features;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Main\NewsController;
 
-Route::get('/', [NewsController::class, 'index'])->name('news.index');
+Route::get('/', [NewsController::class, 'index'])->name('home');
 Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
 
 Route::get('/news/internal', [NewsController::class, 'internal'])->name('news.internal')->middleware(['auth', 'verified', 'internal-user']);
