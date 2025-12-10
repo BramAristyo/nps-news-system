@@ -20,14 +20,14 @@ class RoleMiddleware
     {
         $user = $request->user();
         if (!$user) {
-            return abort(403, 'Unauthenticated');
+            return redirect('/');
         }
         $userRole = $user->role ?? 'user';
         if (empty($roles)) {
             return $next($request);
         }
         if (!in_array($userRole, $roles)) {
-            return abort(403, 'Insufficient role');
+            return redirect('/');
         }
         return $next($request);
     }
