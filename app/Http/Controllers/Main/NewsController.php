@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Main;
 
-use App\Http\Controllers\Controller;
 use App\Services\NewsService;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
@@ -14,9 +15,11 @@ class NewsController extends Controller
         $this->newsService = $newsService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $news = $this->newsService->getAllNews();
+        $search = $request->input('search', '');
+        $categoryId = $request->input('category', '');
+        $news = $this->newsService->getNewsByVisibility($search, $categoryId, 'public');
 
         return inertia('News/Index', [
             'news' => $news,
@@ -32,9 +35,10 @@ class NewsController extends Controller
         ]);
     }
 
-    public function internal()
+    public function internal(Request $request)
     {
-        $news = $this->newsService->getInternalNews();
+        $search = $request->input('search', '');
+        $news = $this->newsService->getNewsByVisibility($search, null, 'internal');
 
         return inertia('News/Internal', [
             'news' => $news,

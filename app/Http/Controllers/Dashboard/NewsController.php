@@ -21,9 +21,13 @@ class NewsController extends Controller
         $this->categoryService = $categoryService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $news = $this->newsService->getAllNews(includeInternal: true);
+        $search = $request->input('search', '');
+        $categoryId = $request->input('category', '');
+        $visibility = $request->input('visibility', 'all');
+
+        $news = $this->newsService->getNewsByVisibility($search, $categoryId, $visibility);
 
         return inertia('Dashboard/News/Index', [
             'news' => $news,
