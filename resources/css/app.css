@@ -8,6 +8,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 
+@theme {
+    --color-accent: oklch(37.9% 0.146 265.522);
+}
+
 @theme inline {
     --font-sans:
         Instrument Sans, ui-sans-serif, system-ui, sans-serif,

@@ -37,3 +37,25 @@ export interface User {
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
+
+export interface Category {
+    id: number;
+    name: string;
+    slug: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface NewsArticle {
+    id: number;
+    title: string;
+    content: string;
+    slug: string;
+    image?: string;
+    is_internal: boolean;
+    user_id: number;
+    user?: User;
+    categories?: Category[];
+    created_at: string;
+    updated_at: string;
+}
