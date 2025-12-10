@@ -28,7 +28,7 @@ class NewsServiceTest extends TestCase
         NewsArticle::factory()->create(['is_internal' => false]);
         NewsArticle::factory()->create(['is_internal' => true]);
 
-        $news = $this->newsService->getAllNews(false);
+        $news = $this->newsService->getNewsByVisibility('', null, 'public');
 
         $this->assertCount(1, $news);
     }
@@ -38,7 +38,7 @@ class NewsServiceTest extends TestCase
         NewsArticle::factory()->create(['is_internal' => false]);
         NewsArticle::factory()->create(['is_internal' => true]);
 
-        $news = $this->newsService->getAllNews(true);
+        $news = $this->newsService->getNewsByVisibility('', null, 'all');
 
         $this->assertCount(2, $news);
     }

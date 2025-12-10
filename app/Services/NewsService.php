@@ -47,36 +47,6 @@ class NewsService
         return $query->latest()->paginate($perPage);
     }
 
-    public function getPublicNews(string $search = '', ?int $categoryId = null, int $perPage = 15)
-    {
-        $query = NewsArticle::with(['user', 'categories'])
-            ->where('is_internal', false);
-
-        if ($search) {
-            $query->where('title', 'like', '%' . $search . '%');
-        }
-
-        if ($categoryId) {
-            $query->whereHas('categories', function ($q) use ($categoryId) {
-                $q->where('id', $categoryId);
-            });
-        }
-
-        return $query->latest()->paginate($perPage);
-    }
-
-    public function getInternalNews(string $search = '', int $perPage = 15)
-    {
-        $query = NewsArticle::with(['user', 'categories'])
-            ->where('is_internal', true);
-
-        if ($search) {
-            $query->where('title', 'like', '%' . $search . '%');
-        }
-
-        return $query->latest()->paginate($perPage);
-    }
-
     public function findBySlug(string $slug): ?NewsArticle
     {
         return NewsArticle::with(['user', 'categories'])
