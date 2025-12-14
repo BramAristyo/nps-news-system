@@ -39,4 +39,9 @@ class CategoryService
         $category = NewsCategory::findOrFail($id);
         return $category->delete();
     }
+
+    public function getMainCategories(): Collection
+    {
+        return NewsCategory::where('is_main', true)->limit(5)->get();
+    }
 }
