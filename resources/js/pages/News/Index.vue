@@ -27,7 +27,7 @@ const formatDate = (date: string) => {
 
 <template>
     <Layout>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
                 <div v-if="news.data.length > 0">
                 <section v-if="heroNews" class="mb-16">
                     <Link 
