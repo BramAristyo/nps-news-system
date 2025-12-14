@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class NewsService
 {
-    public function getAllNews(string $search, ?int $categoryId = null, int $perPage = 15)
+    public function getAllNews(string $search, ?int $categoryId = null, int $perPage = 16)
     {
         $query = NewsArticle::with(['user', 'categories']);
 
@@ -24,7 +24,7 @@ class NewsService
         return $query->latest()->paginate($perPage);
     }
 
-    public function getNewsByVisibility(string $search, string $slug = '', string $visibility = 'all', int $perPage = 15)
+    public function getNewsByVisibility(string $search, string $slug = '', string $visibility = 'all', int $perPage = 16)
     {
         $query = NewsArticle::with(['user', 'categories']);
 

@@ -9,7 +9,7 @@ const news = computed(() => page.props.news as NewsPagination);
 
 const heroNews = computed(() => news.value.data[0] || null);
 const featuredNews = computed(() => news.value.data.slice(1, 4));
-const gridNews = computed(() => news.value.data.slice(4, 15));
+const gridNews = computed(() => news.value.data.slice(4, 16));
 
 const truncate = (text: string, length: number) => {
     if (!text) return '';
@@ -28,20 +28,15 @@ const formatDate = (date: string) => {
 <template>
     <Layout>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="text-center mb-12 pb-8 border-b-2 border-gray-200">
-                <div class="inline-flex items-center gap-3 mb-4">
-                    <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                    </svg>
-                    <span class="px-4 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 font-semibold text-sm uppercase tracking-wide rounded-full">Internal Only</span>
-                </div>
-                <h1 class="text-5xl font-extrabold bg-gradient-to-r from-slate-700 to-slate-900 bg-clip-text text-transparent mb-2">
+             <div class="text-center mb-12 pb-8 border-b-2 border-gray-200">
+                <h1 class="text-5xl font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
                     Berita Internal
                 </h1>
                 <p class="text-lg text-gray-600">
                     Informasi khusus untuk karyawan internal
                 </p>
             </div>
+
 
             <div v-if="news.data.length > 0">
                 <section v-if="heroNews" class="mb-16">
