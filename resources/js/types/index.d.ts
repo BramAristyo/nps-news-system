@@ -24,6 +24,7 @@ export type AppPageProps<
     quote: { message: string; author: string };
     auth: Auth;
     sidebarOpen: boolean;
+    categories: CategoryShared['categories'];
 };
 
 export interface User {
@@ -31,6 +32,8 @@ export interface User {
     name: string;
     email: string;
     avatar?: string;
+    role: 'admin' | 'editor' | 'user';
+    is_internal: boolean;
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
@@ -38,10 +41,17 @@ export interface User {
 
 export type BreadcrumbItemType = BreadcrumbItem;
 
+export type CategoryShared = {
+    categories: {
+        main: Category[];
+        all: Category[];
+    };
+};      
 export interface Category {
     id: number;
     name: string;
     slug: string;
+    is_main: boolean;
     created_at: string;
     updated_at: string;
 }
@@ -59,3 +69,11 @@ export interface NewsArticle {
     created_at: string;
     updated_at: string;
 }
+
+export type NewsPagination = {
+    data: NewsArticle[];
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+};

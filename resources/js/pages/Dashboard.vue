@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppLayout from '@/layouts/AppLayout.vue';
+import AppLayout from '@/layouts/DashboardLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import { logout } from '@/routes';

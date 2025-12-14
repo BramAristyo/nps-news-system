@@ -27,6 +27,13 @@ class HandleInertiaRequests extends Middleware
         return parent::version($request);
     }
 
+    protected $categoryService;
+
+    public function __construct(\App\Services\CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     /**
      * Define the props that are shared by default.
      *
@@ -34,6 +41,7 @@ class HandleInertiaRequests extends Middleware
      *
      * @return array<string, mixed>
      */
+
     public function share(Request $request): array
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
@@ -44,6 +52,10 @@ class HandleInertiaRequests extends Middleware
             'quote' => ['message' => trim($message), 'author' => trim($author)],
             'auth' => [
                 'user' => $request->user(),
+            ],
+            'categories' => [
+                'main' => $this->categoryService->getMainCategories(),
+                'all' => $this->categoryService->getAll(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];

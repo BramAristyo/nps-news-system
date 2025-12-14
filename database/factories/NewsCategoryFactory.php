@@ -21,6 +21,7 @@ class NewsCategoryFactory extends Factory
         return [
             'name' => ucfirst($name),
             'slug' => Str::slug($name),
+            'is_main' => $this->faker->boolean(20), // 20% chance to be true
         ];
     }
 }
