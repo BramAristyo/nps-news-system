@@ -13,6 +13,18 @@ class CategoryService
         return NewsCategory::all();
     }
 
+    public function getPaginated(int $perPage = 10, ?string $search = null)
+    {
+        $query = NewsCategory::query();
+
+        if ($search) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('slug', 'like', "%{$search}%");
+        }
+
+        return $query->latest()->paginate($perPage);
+    }
+
     public function create(array $data): NewsCategory
     {
         if (!isset($data['slug']) && isset($data['name'])) {

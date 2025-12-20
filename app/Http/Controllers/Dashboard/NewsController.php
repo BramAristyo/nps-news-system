@@ -56,7 +56,7 @@ class NewsController extends Controller
         try {
             $data['user_id'] = Auth::user()->id();
             $this->newsService->createNews($data);
-            return redirect()->route('dashboard.news.index')->with('success', 'News article created successfully.');
+            return redirect()->route('news.index')->with('success', 'News article created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to create news article: ' . $e->getMessage());
         }
@@ -77,7 +77,7 @@ class NewsController extends Controller
     {
         try {
             $this->newsService->deleteNews((int) $id);
-            return redirect()->route('dashboard.news.index')->with('success', 'News article deleted successfully.');
+            return redirect()->route('news.index')->with('success', 'News article deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to delete news article: ' . $e->getMessage());
         }
