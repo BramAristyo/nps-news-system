@@ -28,9 +28,12 @@ class NewsController extends Controller
         $visibility = $request->input('visibility', 'all');
 
         $news = $this->newsService->getNewsByVisibility($search, $categoryId, $visibility);
+        $categories = $this->categoryService->getAll();
 
         return inertia('Dashboard/News/Index', [
             'news' => $news,
+            'categories' => $categories,
+            'filters' => $request->only(['search', 'category', 'visibility']),
         ]);
     }
 
@@ -54,9 +57,9 @@ class NewsController extends Controller
         ]);
 
         try {
-            $data['user_id'] = Auth::user()->id();
+            $data['user_id'] = Auth::id();
             $this->newsService->createNews($data);
-            return redirect()->route('news.index')->with('success', 'News article created successfully.');
+            return redirect()->route('manage.news.index')->with('success', 'News article created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to create news article: ' . $e->getMessage());
         }
@@ -67,17 +70,36 @@ class NewsController extends Controller
         $newsArticle = NewsArticle::with('categories')->findOrFail($id);
         $categories = $this->categoryService->getAll();
 
-        return Inertia::render('Dashboard/News/Edit', [
+        return inertia('Dashboard/News/Edit', [
             'news' => $newsArticle,
             'categories' => $categories
         ]);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'image' => 'nullable|image|max:2048',
+            'is_internal' => 'sometimes|boolean',
+            'category_ids' => 'array',
+            'category_ids.*' => 'exists:news_categories,id',
+        ]);
+
+        try {
+            $this->newsService->updateNews((int) $id, $data);
+            return redirect()->route('manage.news.index')->with('success', 'News article updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update news article: ' . $e->getMessage());
+        }
     }
 
     public function destroy(string $id)
     {
         try {
             $this->newsService->deleteNews((int) $id);
-            return redirect()->route('news.index')->with('success', 'News article deleted successfully.');
+            return redirect()->route('manage.news.index')->with('success', 'News article deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to delete news article: ' . $e->getMessage());
         }

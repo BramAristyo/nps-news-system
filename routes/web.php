@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Main\NewsController;
 use App\Http\Controllers\Main\UserController;
 
-Route::middleware(['role-redirect'])->group(function () {
-    Route::get('/', [NewsController::class, 'index'])->name('home');
-});
+Route::get('/', [NewsController::class, 'index'])->name('home');
 
 Route::get('/news/internal', [NewsController::class, 'internal'])->name('news.internal')->middleware(['auth', 'verified', 'internal-user']);
 

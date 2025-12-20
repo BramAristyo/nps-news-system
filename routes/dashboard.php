@@ -20,7 +20,14 @@ Route::middleware(['auth', 'verified', 'role:admin,editor'])->prefix('manage/use
     Route::delete('/{id}', 'destroy')->name('destroy');
 });
 
-Route::get('manage/news', [NewsController::class, 'index'])->name('news.index')->middleware('role:admin,editor');
+Route::middleware(['auth', 'verified', 'role:admin,editor'])->prefix('manage/news')->name('manage.news.')->controller(NewsController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::put('/{id}', 'update')->name('update');
+    Route::delete('/{id}', 'destroy')->name('destroy');
+});
 
 Route::middleware(['auth', 'verified', 'role:admin,editor'])->prefix('manage/categories')->name('manage.categories.')->controller(CategoryController::class)->group(function () {
     Route::get('/', 'index')->name('index');

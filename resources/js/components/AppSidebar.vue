@@ -16,7 +16,7 @@ import { Link } from '@inertiajs/vue3';
 import { BookOpen, Folder, LayoutGrid, User } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 import users from '@/routes/manage/users/index';
-import news from '@/routes/news/index';
+import news from '@/routes/manage/news/index';
 import categories from '@/routes/manage/categories/index';
 
 const mainNavItems: NavItem[] = [
