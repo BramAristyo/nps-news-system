@@ -16,28 +16,31 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->userService->getAllUsers();
+        $users = $this->userService->getPaginated(
+            10,
+            $request->input('search')
+        );
 
         return inertia('Dashboard/Users/Index', [
             'users' => $users,
+            'filters' => $request->only(['search']),
         ]);
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
             'role' => ['required', Rule::in(['admin', 'editor', 'user'])],
-            'is_internal' => 'boolean',
+            'is_internal' => 'sometimes|boolean',
         ]);
 
         try {
             $this->userService->createUser($data);
-            return redirect()->route('dashboard.users.index')->with('success', 'User created successfully.');
+            return redirect()->route('manage.users.index')->with('success', 'User created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to create user: ' . $e->getMessage());
         }
@@ -55,7 +58,7 @@ class UserController extends Controller
 
         try {
             $this->userService->updateUser((int) $id, $data);
-            return redirect()->route('dashboard.users.index')->with('success', 'User updated successfully.');
+            return redirect()->route('manage.users.index')->with('success', 'User updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to update user: ' . $e->getMessage());
         }
@@ -65,7 +68,7 @@ class UserController extends Controller
     {
         try {
             $this->userService->deleteUser((int) $id);
-            return redirect()->route('dashboard.users.index')->with('success', 'User deleted successfully.');
+            return redirect()->route('manage.users.index')->with('success', 'User deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to delete user: ' . $e->getMessage());
         }

@@ -18,7 +18,6 @@ const formatDate = (date: string) => {
 };
 
 const formatContent = (content: string) => {
-    // Split content by paragraphs and format
     return content.split('\n').filter(p => p.trim()).map(p => p.trim());
 };
 </script>
@@ -26,7 +25,6 @@ const formatContent = (content: string) => {
 <template>
     <Layout>
         <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <!-- Back Navigation -->
             <Link 
                 href="/" 
                 class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-semibold mb-8 transition-colors group"
@@ -35,9 +33,7 @@ const formatContent = (content: string) => {
                 Kembali ke Beranda
             </Link>
 
-            <!-- Article Header -->
             <header class="mb-8">
-                <!-- Categories -->
                 <div v-if="newsArticle.categories && newsArticle.categories.length > 0" class="flex flex-wrap gap-2 mb-4">
                     <span
                         v-for="cat in newsArticle.categories"
@@ -49,12 +45,9 @@ const formatContent = (content: string) => {
                     </span>
                 </div>
 
-                <!-- Title -->
                 <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
                     {{ newsArticle.title }}
                 </h1>
-
-                <!-- Metadata -->
                 <div class="flex flex-wrap gap-6 text-gray-600 border-y border-gray-200 py-4">
                     <div v-if="newsArticle.user" class="flex items-center gap-2">
                         <User class="w-5 h-5 text-indigo-600" />
@@ -69,7 +62,6 @@ const formatContent = (content: string) => {
                 </div>
             </header>
 
-            <!-- Featured Image -->
             <figure v-if="newsArticle.image" class="mb-10 rounded-2xl overflow-hidden shadow-2xl">
                 <img
                     :src="`/${newsArticle.image}`"
@@ -78,18 +70,16 @@ const formatContent = (content: string) => {
                 />
             </figure>
 
-            <!-- Article Content -->
             <div class="prose prose-lg max-w-none mb-12">
-                <div 
+                <p 
                     v-for="(paragraph, index) in formatContent(newsArticle.content)"
                     :key="index"
                     class="mb-6 text-gray-800 leading-relaxed text-lg"
                 >
                     {{ paragraph }}
-                </div>
+                </p>
             </div>
 
-            <!-- Article Footer -->
             <footer class="border-t-2 border-gray-200 pt-8 mt-12">
                 <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6">
                     <div class="flex items-start gap-4">
@@ -108,7 +98,6 @@ const formatContent = (content: string) => {
                 </div>
             </footer>
 
-            <!-- Back to Home Button -->
             <div class="mt-12 text-center">
                 <Link 
                     href="/" 
@@ -121,14 +110,3 @@ const formatContent = (content: string) => {
         </article>
     </Layout>
 </template>
-
-<style scoped>
-.prose {
-    color: #374151;
-}
-
-.prose p {
-    margin-bottom: 1.5rem;
-    line-height: 1.8;
-}
-</style>

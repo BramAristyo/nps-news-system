@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { home, login, register } from '@/routes';
+import { home, login, register, dashboard } from '@/routes';
 import { internal } from '@/routes/news';
 import { edit } from '@/routes/profile';
 import { Category } from '@/types';
 import { Link, router, usePage } from '@inertiajs/vue3';
-import { Menu, X, ChevronDown, Settings, LogOut } from 'lucide-vue-next';
+import { Menu, X, ChevronDown, Settings, LogOut, Home } from 'lucide-vue-next';
 import { computed, onMounted, ref } from 'vue';
 
 defineProps<{
@@ -31,8 +31,8 @@ const isSettingsPage = computed(() => {
     return page.url === '/settings/profile';
 });
 
-const isInternalPage = computed(() => {
-    return page.url === '/news/internal';
+const isDashboardPage = computed(() => {
+    return page.url === '/dashboard';
 });
 
 const activeCategory = computed(() => {
@@ -92,6 +92,15 @@ onMounted(() => {
                                 </button>
                                 <div class="absolute right-0 top-full pt-1 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right">
                                     <div class="bg-white text-gray-800 rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5">
+                                        <Link
+                                            :href="dashboard()"
+                                            class="flex items-center gap-2 px-4 py-2 hover:underline text-sm transition-colors"
+                                            :class="isDashboardPage ? 'text-blue-900 font-semibold' : ''"
+                                            v-if="page.props.auth.user.role === 'admin' || page.props.auth.user.role === 'editor'"
+                                        >
+                                            <Home class="w-4 h-4" />
+                                            Dashboard
+                                        </Link>
                                         <Link
                                             :href="edit()"
                                             class="flex items-center gap-2 px-4 py-2 hover:underline text-sm transition-colors"

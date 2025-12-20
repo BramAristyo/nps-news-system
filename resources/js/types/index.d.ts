@@ -15,6 +15,7 @@ export interface NavItem {
     href: NonNullable<InertiaLinkProps['href']>;
     icon?: LucideIcon;
     isActive?: boolean;
+    isAdmin?: boolean;
 }
 
 export type AppPageProps<
@@ -25,6 +26,10 @@ export type AppPageProps<
     auth: Auth;
     sidebarOpen: boolean;
     categories: CategoryShared['categories'];
+    flash?: {
+        success?: string;
+        error?: string;
+    };
 };
 
 export interface User {

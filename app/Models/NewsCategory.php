@@ -10,7 +10,7 @@ class NewsCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['name', 'slug', 'is_main'];
 
     public function articles(): BelongsToMany
     {

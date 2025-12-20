@@ -24,7 +24,7 @@ class NewsService
         return $query->latest()->paginate($perPage);
     }
 
-    public function getNewsByVisibility(string $search, string $slug = '', string $visibility = 'all', int $perPage = 16)
+    public function getNewsByVisibility(?string $search = '', ?string $slug = '', string $visibility = 'all', int $perPage = 15)
     {
         $query = NewsArticle::with(['user', 'categories']);
 
@@ -67,7 +67,16 @@ class NewsService
             $data['image'] = $path;
         }
 
-        return NewsArticle::create($data);
+        $categoryIds = $data['category_ids'] ?? [];
+        unset($data['category_ids']);
+
+        $article = NewsArticle::create($data);
+        
+        if (!empty($categoryIds)) {
+            $article->categories()->sync($categoryIds);
+        }
+
+        return $article;
     }
 
     public function updateNews(int $id, array $data): NewsArticle
@@ -85,9 +94,20 @@ class NewsService
 
             $path = $image->storeAs('news-images', $filename, 'public');
             $data['image'] = $path;
+        } else {
+            // Don't update image if not provided
+            unset($data['image']);
         }
 
+        $categoryIds = $data['category_ids'] ?? [];
+        unset($data['category_ids']);
+
         $article->update($data);
+        
+        if (isset($categoryIds)) {
+            $article->categories()->sync($categoryIds);
+        }
+
         return $article;
     }
 

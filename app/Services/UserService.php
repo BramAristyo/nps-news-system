@@ -13,12 +13,24 @@ class UserService
         return User::all();
     }
 
+    public function getPaginated(int $perPage = 10, ?string $search = null)
+    {
+        $query = User::query();
+
+        if ($search) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+        }
+
+        return $query->latest()->paginate($perPage);
+    }
+
     public function createUser(array $data): User
     {
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make('password'), 
             'role' => $data['role'] ?? 'user',
             'is_internal' => $data['is_internal'] ?? false,
         ]);
