@@ -17,9 +17,11 @@ class DashboardController extends Controller
     public function index()
     {
         $summary = $this->dashboardService->summary();
+        $recentNews = $this->dashboardService->getRecentNews(5);
 
         return inertia('Dashboard/Index', [
             'summary' => $summary,
+            'recentNews' => $recentNews,
         ]);
     }
 }

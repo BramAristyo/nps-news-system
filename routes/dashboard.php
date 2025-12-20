@@ -5,11 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\NewsController;
 use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\DashboardController;
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-      return Inertia::render('Dashboard');
-    })->middleware('role:admin,editor')->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])
+        ->middleware('role:admin,editor')
+        ->name('dashboard');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin,editor'])->prefix('manage/users')->name('manage.users.')->controller(UserController::class)->group(function () {
