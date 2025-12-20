@@ -9,7 +9,7 @@ const news = computed(() => page.props.news as NewsPagination);
 
 const heroNews = computed(() => news.value.data[0] || null);
 const featuredNews = computed(() => news.value.data.slice(1, 4));
-const gridNews = computed(() => news.value.data.slice(4, 15));
+const gridNews = computed(() => news.value.data.slice(4, 16));
 
 const truncate = (text: string, length: number) => {
     if (!text) return '';
@@ -27,17 +27,8 @@ const formatDate = (date: string) => {
 
 <template>
     <Layout>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="text-center mb-12 pb-8 border-b-2 border-gray-200">
-                <h1 class="text-5xl font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                    Berita Terbaru
-                </h1>
-                <p class="text-lg text-gray-600">
-                    Tetap terhubung dengan cerita dan wawasan terbaru kami
-                </p>
-            </div>
-
-            <div v-if="news.data.length > 0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+                <div v-if="news.data.length > 0">
                 <section v-if="heroNews" class="mb-16">
                     <Link 
                         :href="`/news/${heroNews.slug || heroNews.id}`" 

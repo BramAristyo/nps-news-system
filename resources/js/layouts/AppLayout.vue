@@ -167,6 +167,10 @@ onMounted(() => {
                     <Link
                         v-if="page.props.auth.user?.is_internal"
                         :href="internal()"
+                        :class="[
+                            'hover:underline',
+                            isInternalPage ? 'font-bold underline' : ''
+                        ]"
                         class="hover:underline"
                     >
                         Internal News

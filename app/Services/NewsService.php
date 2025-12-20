@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class NewsService
 {
-    public function getAllNews(string $search, ?int $categoryId = null, int $perPage = 15)
+    public function getAllNews(string $search, ?int $categoryId = null, int $perPage = 16)
     {
         $query = NewsArticle::with(['user', 'categories']);
 

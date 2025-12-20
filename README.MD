@@ -525,8 +525,17 @@ php artisan key:generate
 # DB_USERNAME=root
 # DB_PASSWORD=
 
+# Create storage link
+php artisan storage:link 
+
 # Run migrations
 php artisan migrate
+
+# Run seeders (for basic users)
+php artisan db:seed --class=UserSeeder
+
+# Run seeders (for development only)
+php artisan db:seed
 
 # Build frontend assets
 npm run build
