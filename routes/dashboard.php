@@ -12,7 +12,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->middleware('role:admin,editor')->name('dashboard');
 });
 
-Route::get('manage/users', [UserController::class, 'index'])->name('users.index')->middleware('role:admin,editor');
+Route::middleware(['auth', 'verified', 'role:admin,editor'])->prefix('manage/users')->name('manage.users.')->controller(UserController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
+    Route::put('/{id}', 'update')->name('update');
+    Route::delete('/{id}', 'destroy')->name('destroy');
+});
+
 Route::get('manage/news', [NewsController::class, 'index'])->name('news.index')->middleware('role:admin,editor');
 
 Route::middleware(['auth', 'verified', 'role:admin,editor'])->prefix('manage/categories')->name('manage.categories.')->controller(CategoryController::class)->group(function () {

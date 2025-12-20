@@ -15,7 +15,7 @@ import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import { BookOpen, Folder, LayoutGrid, User } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
-import users from '@/routes/users/index';
+import users from '@/routes/manage/users/index';
 import news from '@/routes/news/index';
 import categories from '@/routes/manage/categories/index';
 
