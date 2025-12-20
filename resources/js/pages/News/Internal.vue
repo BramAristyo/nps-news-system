@@ -52,7 +52,7 @@ const formatDate = (date: string) => {
                         <div class="absolute inset-0">
                             <img
                                 v-if="heroNews.image"
-                                :src="`/${heroNews.image}`"
+                                :src="heroNews.image.startsWith('images/') ? `/${heroNews.image}` : `/storage/${heroNews.image}`"
                                 :alt="heroNews.title"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                             />
@@ -112,7 +112,7 @@ const formatDate = (date: string) => {
                             <div class="relative h-60 overflow-hidden">
                                 <img
                                     v-if="article.image"
-                                    :src="`/${article.image}`"
+                                    :src="article.image.startsWith('images/') ? `/${article.image}` : `/storage/${article.image}`"
                                     :alt="article.title"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                 />
@@ -166,7 +166,7 @@ const formatDate = (date: string) => {
                             <div class="relative h-48 overflow-hidden">
                                 <img
                                     v-if="article.image"
-                                    :src="`/${article.image}`"
+                                    :src="article.image.startsWith('images/') ? `/${article.image}` : `/storage/${article.image}`"
                                     :alt="article.title"
                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                 />

@@ -27,9 +27,14 @@ const form = useForm({
     image: null as File | null,
     is_internal: Boolean(props.news.is_internal),
     category_ids: props.news.categories?.map(c => c.id) || [],
+    _method: 'PUT',
 });
 
-const imagePreview = ref<string | null>(props.news.image ? `/${props.news.image}` : null);
+const imagePreview = ref<string | null>(
+    props.news.image 
+        ? (props.news.image.startsWith('images/') ? `/${props.news.image}` : `/storage/${props.news.image}`)
+        : null
+);
 
 const handleImageChange = (event: Event) => {
     const target = event.target as HTMLInputElement;
@@ -54,7 +59,8 @@ const toggleCategory = (categoryId: number) => {
 };
 
 const handleSubmit = () => {
-    form.put(newsRoutes.update(props.news.id).url, {
+    form.post(newsRoutes.update(props.news.id).url, {
+        forceFormData: true,
         onSuccess: () => {
             router.visit('/manage/news');
         },

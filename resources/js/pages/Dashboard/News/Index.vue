@@ -148,7 +148,7 @@ const handleDelete = () => {
                         <TableRow v-for="article in news.data" :key="article.id">
                             <TableCell>
                                 <div class="w-16 h-16 bg-gray-100 rounded-md overflow-hidden">
-                                    <img v-if="article.image" :src="`/${article.image}`" :alt="article.title" class="w-full h-full object-cover" />
+                                    <img v-if="article.image" :src="article.image.startsWith('images/') ? `/${article.image}` : `/storage/${article.image}`" :alt="article.title" class="w-full h-full object-cover" />
                                     <div v-else class="w-full h-full flex items-center justify-center">
                                         <ImageIcon class="w-6 h-6 text-gray-400" />
                                     </div>
