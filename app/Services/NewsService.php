@@ -70,8 +70,10 @@ class NewsService
         $categoryIds = $data['category_ids'] ?? [];
         unset($data['category_ids']);
 
+        $data['slug'] = \Str::slug($data['title']) . '-' . uniqid();
+
         $article = NewsArticle::create($data);
-        
+
         if (!empty($categoryIds)) {
             $article->categories()->sync($categoryIds);
         }
@@ -103,7 +105,7 @@ class NewsService
         unset($data['category_ids']);
 
         $article->update($data);
-        
+
         if (isset($categoryIds)) {
             $article->categories()->sync($categoryIds);
         }
