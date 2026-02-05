@@ -48,9 +48,9 @@ const allNavItems: NavItem[] = [
 
 // Filter menu items based on user role
 const mainNavItems = computed(() => {
-    const user = page.props.auth?.user as any;
-    const isAdmin = user?.roles?.some((role: any) => role.name === 'admin') || false;
-    
+    const user = page.props.auth.user;
+    const isAdmin = user.role.toLowerCase() === 'admin';
+
     return allNavItems.filter(item => {
         if (item.isAdmin) {
             return isAdmin;
