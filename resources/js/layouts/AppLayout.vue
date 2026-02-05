@@ -123,29 +123,29 @@ onMounted(() => {
                     </div>
                 </div>
 
-                <div class="relative py-3 text-center">
-                    <Link :href="home()">
+                <div class="relative py-4 sm:py-6 text-center bg-blue-900"> <Link :href="home()" class="inline-block max-w-[80%]">
                         <h1
-                            class="text-4xl font-extrabold text-white italic md:text-6xl"
+                            class="text-xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-white italic px-2 tracking-tight leading-tight"
                         >
                             NPS News System
                         </h1>
                     </Link>
 
                     <button
-                        class="absolute top-1/2 right-0 -translate-y-1/2 text-white md:hidden"
+                        class="absolute top-1/2 right-2 sm:right-4 -translate-y-1/2 text-white md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors"
                         @click="toggleMobileMenu"
+                        aria-label="Toggle menu"
                     >
-                        <Menu v-if="!mobileMenuOpen" />
-                        <X v-else />
+                        <Menu v-if="!mobileMenuOpen" :size="28" />
+                        <X v-else :size="28" />
                     </button>
                 </div>
 
                 <div
                     class="hidden justify-center gap-12 py-4 text-white md:flex"
                 >
-                    <Link 
-                        :href="home()" 
+                    <Link
+                        :href="home()"
                         :class="[
                             'hover:underline',
                             isHomePage && !activeCategory ? 'font-bold underline' : ''
