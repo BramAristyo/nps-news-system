@@ -30,8 +30,8 @@ const formatDate = (date: string) => {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
                 <div v-if="news.data.length > 0">
                 <section v-if="heroNews" class="mb-16">
-                    <Link 
-                        :href="`/news/${heroNews.slug || heroNews.id}`" 
+                    <Link
+                        :href="`/news/${heroNews.slug || heroNews.id}`"
                         class="block relative h-[600px] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 group"
                     >
                         <div class="absolute inset-0">
@@ -59,9 +59,9 @@ const formatDate = (date: string) => {
                             <h2 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight drop-shadow-lg">
                                 {{ heroNews.title }}
                             </h2>
-                            <p class="text-lg mb-6 text-white/95 drop-shadow-md max-w-4xl">
+                            <!-- <p class="text-lg mb-6 text-white/95 drop-shadow-md max-w-4xl sm:hidden">
                                 {{ truncate(heroNews.content, 200) }}
-                            </p>
+                            </p> -->
                             <div class="flex gap-6 text-sm text-white/90">
                                 <span v-if="heroNews.user" class="flex items-center gap-2">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,8 +186,8 @@ const formatDate = (date: string) => {
                         :href="link.url || '#'"
                         :class="[
                             'px-4 py-2 rounded-lg font-semibold transition-all duration-200',
-                            link.active 
-                                ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white' 
+                            link.active
+                                ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
                                 : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-indigo-600 hover:text-indigo-600',
                             !link.url && 'opacity-50 cursor-not-allowed'
                         ]"

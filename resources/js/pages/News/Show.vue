@@ -25,8 +25,8 @@ const formatContent = (content: string) => {
 <template>
     <Layout>
         <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <Link 
-                href="/" 
+            <Link
+                href="/"
                 class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-semibold mb-8 transition-colors group"
             >
                 <ArrowLeft class="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
@@ -71,10 +71,10 @@ const formatContent = (content: string) => {
             </figure>
 
             <div class="prose prose-lg max-w-none mb-12">
-                <p 
+                <p
                     v-for="(paragraph, index) in formatContent(newsArticle.content)"
                     :key="index"
-                    class="mb-6 text-gray-800 leading-relaxed text-lg"
+                    class="mb-6 text-gray-800 leading-relaxed text-lg text-justify"
                 >
                     {{ paragraph }}
                 </p>
@@ -99,8 +99,8 @@ const formatContent = (content: string) => {
             </footer>
 
             <div class="mt-12 text-center">
-                <Link 
-                    href="/" 
+                <Link
+                    href="/"
                     class="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:from-indigo-700 hover:to-purple-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                 >
                     <ArrowLeft class="w-5 h-5" />
